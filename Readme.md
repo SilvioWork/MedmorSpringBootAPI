@@ -12,6 +12,7 @@
 * Read a Product
 * Update a Product
 * Delete a Product
+* Register product in a section
 
 ### Filtering functionalities 
 * Product by Section
