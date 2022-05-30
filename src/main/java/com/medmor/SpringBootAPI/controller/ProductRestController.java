@@ -196,7 +196,7 @@ public class ProductRestController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/product//{lot}")
+    @GetMapping("/product/{lot}")
     @ApiOperation("List Products by Section")
     public ResponseEntity<?> listByLot(@PathVariable String lot){
         List<ProductDTO> list = null;
