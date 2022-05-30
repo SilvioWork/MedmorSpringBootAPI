@@ -25,8 +25,10 @@
 * LOMBOCK
 * VALIDATION
 * SWAGGER
+* HANDLER EXCEPTION
 
 ## Next MVP Aplication
 * Decoupling of interfaces and conversion to DTO via Maper resource.
-* Create the management mechanism (CRUD) for the Enums.
+  * Create the management mechanism (CRUD) for the Enums.
 * Implement application security.
+* Create an external layer for capturing Exceptions.
