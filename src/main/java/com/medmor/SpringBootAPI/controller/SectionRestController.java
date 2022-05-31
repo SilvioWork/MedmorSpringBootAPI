@@ -1,7 +1,10 @@
 package com.medmor.SpringBootAPI.controller;
 
+import com.medmor.SpringBootAPI.dto.ProductDTO;
 import com.medmor.SpringBootAPI.dto.SectiontDTO;
+import com.medmor.SpringBootAPI.model.Product;
 import com.medmor.SpringBootAPI.model.Section;
+import com.medmor.SpringBootAPI.service.IProductService;
 import com.medmor.SpringBootAPI.service.ISectionService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,8 @@ public class SectionRestController {
 
     @Autowired
     private ISectionService sectionService;
+    @Autowired
+    private IProductService productService;
 
     @GetMapping("/section")
     @ApiOperation("List all Sections")
@@ -146,8 +151,15 @@ public class SectionRestController {
     @DeleteMapping("/section/{id}")
     @ApiOperation("Delete Section")
     public ResponseEntity<?> delete(@PathVariable Long id) {
+        Section section = sectionService.findById(id);
+        List<ProductDTO> listaProduct = productService.listBySection(section);
 
         Map<String, Object> response = new HashMap<>();
+
+        if(!listaProduct.isEmpty() ){
+            response.put("message", "This Section cannot be deleted!" );
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
 
         try {
             sectionService.delete(id);

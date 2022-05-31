@@ -18,6 +18,10 @@
 * Product by Section
 * Product by Lot
 * Product by Container Type
+* Product by Fragile
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
 
 ### Use of Spring Boot Resources
 * DTO

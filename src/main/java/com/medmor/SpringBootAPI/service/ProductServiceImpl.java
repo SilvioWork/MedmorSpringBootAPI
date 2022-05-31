@@ -92,6 +92,14 @@ public class ProductServiceImpl implements IProductService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ProductDTO> listByFragile(boolean fragile) {
+        return productRepository.findByFragile(fragile)
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
 
     private ProductDTO convertEntityToDto(Product product){
         ProductDTO productDTO = new ProductDTO();

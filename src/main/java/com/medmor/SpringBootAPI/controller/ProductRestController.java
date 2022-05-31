@@ -88,7 +88,7 @@ public class ProductRestController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
         try {
-
+            product.setLot(product.getLot().toUpperCase());
             productNew = productService.save(product);
 
         } catch (DataAccessException e) {
@@ -135,11 +135,10 @@ public class ProductRestController {
             productActual.setColor(product.getColor());
             productActual.setPrice(product.getPrice());
             productActual.setAmount(product.getAmount());
-            productActual.setLot(product.getLot());
+            productActual.setLot(product.getLot().toUpperCase());
             productActual.setFragile(product.isFragile());
             productActual.setContainerType(product.getContainerType());
             productActual.setSection(product.getSection());
-
 
             productUpdated = productService.save(productActual);
 
@@ -180,7 +179,7 @@ public class ProductRestController {
         Section section = sectionService.findById(id);
          Map<String,Object> response = new HashMap<>();
         if(section==null){
-            response.put("message", "Error: The Section dont exist!" );
+            response.put("message", "The Section dont exist!" );
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
 
@@ -198,14 +197,15 @@ public class ProductRestController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/product/{lot}")
+    @GetMapping("/product/lot/{lot}")
     @ApiOperation("List Products by Lot")
     public ResponseEntity<?> listByLot(@PathVariable String lot){
         List<ProductDTO> list = null;
         Map<String,Object> response = new HashMap<>();
 
         try {
-            list = productService.listByLot(lot);
+
+            list = productService.listByLot(lot.toUpperCase());
 
         }catch (DataAccessException e){
             response.put("message", "Error! Find the product from the DB.");
@@ -214,7 +214,7 @@ public class ProductRestController {
         }
 
         if(list.isEmpty()){
-            response.put("message", "Error: The Product with this lot dont exist!" );
+            response.put("message", "The Product with this lot dont exist!" );
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -237,7 +237,27 @@ public class ProductRestController {
         }
 
         if(list.isEmpty()){
-            response.put("message", "Error: The Product with this container type dont exist!" );
+            response.put("message", "The Product with this container type dont exist!" );
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    @GetMapping("/product/fragile/{fragile}")
+    @ApiOperation("List Products by Container Type")
+    public ResponseEntity<?> listByContainerType(@PathVariable boolean fragile){
+        List<ProductDTO> list = null;
+        Map<String,Object> response = new HashMap<>();
+        try {
+            list = productService.listByFragile(fragile);
+
+        }catch (DataAccessException e){
+            response.put("message", "Error! Find the product from the DB.");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if(list.isEmpty()){
+            response.put("message", "The Product with this value dont exist!" );
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);

@@ -18,4 +18,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     public List<Product> findByContainerType(ContainerType containerType);
 
+    public List<Product> findByFragile(boolean fragile);
+
 }

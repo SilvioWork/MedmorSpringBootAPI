@@ -28,4 +28,6 @@ public interface IProductService {
     public List<ProductDTO> listByLot(String lot);
 
     public List<ProductDTO> listByContainerType(ContainerType containerType);
+
+    public List<ProductDTO> listByFragile(boolean fragile);
 }
