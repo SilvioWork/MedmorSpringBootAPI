@@ -100,7 +100,6 @@ public class ProductServiceImpl implements IProductService{
                 .collect(Collectors.toList());
     }
 
-
     private ProductDTO convertEntityToDto(Product product){
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());

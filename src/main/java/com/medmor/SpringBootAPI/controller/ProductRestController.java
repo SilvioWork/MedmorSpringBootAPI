@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -226,7 +227,6 @@ public class ProductRestController {
         List<ProductDTO> list = null;
         Map<String,Object> response = new HashMap<>();
         ContainerType container = ContainerType.valueOf(type);
-        System.out.println(container);
         try {
             list = productService.listByContainerType(container);
 
@@ -262,4 +262,7 @@ public class ProductRestController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+
+
 }

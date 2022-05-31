@@ -32,7 +32,7 @@ body { margin: 0; font-family: 'Roboto', sans-serif; }
 * SWAGGER
 * HANDLER EXCEPTION
 
-## Next MVP Aplication
+## Next MVP Aplication (Improvements)
 * Decoupling of interfaces and conversion to DTO via Maper resource.
   * Create the management mechanism (CRUD) for the Enums.
 * Implement application security.
