@@ -1,6 +1,7 @@
 package com.medmor.SpringBootAPI.service;
 
 import com.medmor.SpringBootAPI.dto.ProductDTO;
+import com.medmor.SpringBootAPI.model.ContainerType;
 import com.medmor.SpringBootAPI.model.Product;
 import com.medmor.SpringBootAPI.model.Section;
 import com.medmor.SpringBootAPI.repository.ProductRepository;
@@ -78,6 +79,14 @@ public class ProductServiceImpl implements IProductService{
     @Override
     public List<ProductDTO> listByLot(String lot) {
         return productRepository.findByLot(lot)
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> listByContainerType(ContainerType typeContainer) {
+        return productRepository.findByContainerType(typeContainer)
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());

@@ -17,6 +17,7 @@
 ### Filtering functionalities 
 * Product by Section
 * Product by Lot
+* Product by Container Type
 
 ### Use of Spring Boot Resources
 * DTO

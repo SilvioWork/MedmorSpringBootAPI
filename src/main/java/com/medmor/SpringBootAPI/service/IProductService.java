@@ -1,6 +1,7 @@
 package com.medmor.SpringBootAPI.service;
 
 import com.medmor.SpringBootAPI.dto.ProductDTO;
+import com.medmor.SpringBootAPI.model.ContainerType;
 import com.medmor.SpringBootAPI.model.Product;
 import com.medmor.SpringBootAPI.model.Section;
 import org.springframework.data.domain.Page;
@@ -26,5 +27,5 @@ public interface IProductService {
 
     public List<ProductDTO> listByLot(String lot);
 
-
+    public List<ProductDTO> listByContainerType(ContainerType containerType);
 }

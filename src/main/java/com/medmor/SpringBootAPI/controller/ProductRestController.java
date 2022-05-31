@@ -2,6 +2,7 @@ package com.medmor.SpringBootAPI.controller;
 
 
 import com.medmor.SpringBootAPI.dto.ProductDTO;
+import com.medmor.SpringBootAPI.model.ContainerType;
 import com.medmor.SpringBootAPI.model.Product;
 import com.medmor.SpringBootAPI.model.Section;
 import com.medmor.SpringBootAPI.service.IProductService;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -197,7 +199,7 @@ public class ProductRestController {
     }
 
     @GetMapping("/product/{lot}")
-    @ApiOperation("List Products by Section")
+    @ApiOperation("List Products by Lot")
     public ResponseEntity<?> listByLot(@PathVariable String lot){
         List<ProductDTO> list = null;
         Map<String,Object> response = new HashMap<>();
@@ -213,6 +215,29 @@ public class ProductRestController {
 
         if(list.isEmpty()){
             response.put("message", "Error: The Product with this lot dont exist!" );
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("/product/container/{type}")
+    @ApiOperation("List Products by Container Type")
+    public ResponseEntity<?> listByContainerType(@PathVariable String type){
+        List<ProductDTO> list = null;
+        Map<String,Object> response = new HashMap<>();
+        ContainerType container = ContainerType.valueOf(type);
+        System.out.println(container);
+        try {
+            list = productService.listByContainerType(container);
+
+        }catch (DataAccessException e){
+            response.put("message", "Error! Find the product from the DB.");
+            response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if(list.isEmpty()){
+            response.put("message", "Error: The Product with this container type dont exist!" );
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
