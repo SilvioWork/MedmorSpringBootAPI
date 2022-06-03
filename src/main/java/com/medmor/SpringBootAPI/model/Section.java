@@ -33,5 +33,9 @@ public class Section implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypeProduct typeProduct;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "section")
+    @JsonIgnoreProperties({"section","hibernateLazyInitializer", "handler"})
+    private List<Product> products = new ArrayList<>();
+
     private static final long serialVersionUID = 1L;
 }

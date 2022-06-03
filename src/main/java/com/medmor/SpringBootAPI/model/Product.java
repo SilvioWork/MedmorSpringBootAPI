@@ -1,5 +1,6 @@
 package com.medmor.SpringBootAPI.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,8 +47,8 @@ public class Product implements Serializable {
     private ContainerType containerType;
 
     @NotNull(message = "cannot be Null")
-    @ManyToOne
-    @JoinColumn(name = "section_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"products","hibernateLazyInitializer", "handler"})
     private Section section;
 
     private static final long serialVersionUID = 1L;

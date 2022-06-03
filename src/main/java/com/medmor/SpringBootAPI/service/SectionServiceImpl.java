@@ -68,6 +68,7 @@ public class SectionServiceImpl implements ISectionService{
         sectionDto.setId(section.getId());
         sectionDto.setSize(section.getSize());
         sectionDto.setTypeProduct(section.getTypeProduct().name());
+        sectionDto.setProducts(section.getProducts());
         return  sectionDto;
 
 
